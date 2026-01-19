@@ -91,7 +91,8 @@ public class TestDataFactory {
                 Alias__c = name + ' Alias',
                 Power__c = 'Strength',
                 Home_City__c = 'Test City',
-                Status__c = 'Injured'
+                Status__c = 'Injured',
+                Is_Injured__c = true
         );
         insert hero;
         return hero;

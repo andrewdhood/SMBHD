@@ -52,7 +52,8 @@ private class MissionAssignmentServiceTest {
                         Alias__c = 'The Brave',
                         Power__c = 'Strength',
                         Home_City__c = 'Boston',
-                        Status__c = 'Injured'
+                        Status__c = 'Injured',
+                        Is_Injured__c = true
                 )
         };
         insert heroes;
