@@ -1,0 +1,27 @@
+# Salesforce DX & CLI
+.sf/                    # Salesforce CLI state and tokens
+.sfdx/                  # Salesforce DX local workspace data
+.localdev/              # Local development server cache
+
+# IDE - Illuminated Cloud
+/IlluminatedCloud/      # Project metadata
+/.illuminatedCloud/     # Configuration folder
+
+# IDE - VS Code
+.vscode/                # Personal workspace settings (ignore to allow team defaults)
+
+# Build & Dependencies
+/out/                   # Build output directory
+target/                 # Compiled artifacts (common in Maven/IC)
+node_modules/           # Local dependencies for LWC/Jest tests
+**/tsconfig*.json       # TypeScript configuration (often auto-generated)
+**/*.tsbuildinfo        # TypeScript build cache
+
+# Security (CRITICAL)
+server.key              # Private security keys for JWT auth
+.env                    # Local environment variables
+
+# System & Logs
+*.log                   # Debug and execution logs
+.DS_Store               # macOS system files
+Thumbs.db               # Windows thumbnail cache
