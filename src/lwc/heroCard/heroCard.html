@@ -1,0 +1,54 @@
+<!--
+ - Created by andrewhood on 1/19/26.
+ -->
+
+<!-- Hero Card -->
+<template>
+    <lightning-card class="slds-show_inline-block slds-m-around_x-small hero-card">
+        <div class="slds-p-around_medium slds-text-align_center">
+            <div class="slds-m-bottom_small">
+                <template if:true={hero.profileImageUrl}>
+                    <img src={hero.profileImageUrl} alt={hero.name} class="hero-image" />
+                </template>
+                <template if:false={hero.profileImageUrl}>
+                    <lightning-icon icon-name="standard:user" size="large"></lightning-icon>
+                </template>
+            </div>
+
+            <h3 class="slds-text-heading_small slds-truncate" title={hero.name}>{hero.name}</h3>
+            <p class="slds-text-color_weak slds-m-bottom_small"><i>{hero.alias}</i></p>
+
+            <div class="slds-m-bottom_small">
+                <span class={statusClass}>{hero.effectiveStatus}</span>
+            </div>
+
+            <p class="slds-text-body_small slds-m-bottom_medium">Power: <strong>{hero.power}</strong></p>
+
+            <template if:true={hero.isDeployedHere}>
+                <lightning-button
+                        label="Recall"
+                        variant="destructive"
+                        onclick={handleRecall}
+                        stretch>
+                </lightning-button>
+            </template>
+
+            <template if:false={hero.isDeployedHere}>
+                <lightning-button
+                        label="Deploy"
+                        variant="brand"
+                        onclick={handleDeploy}
+                        disabled={btnDisabled}
+                        title={btnTitle}
+                        stretch>
+                </lightning-button>
+            </template>
+
+            <template if:true={hero.hasConflict}>
+                <p class="slds-text-color_error slds-text-body_extra-small slds-m-top_x-small">
+                    Busy: {hero.conflictingMissionName}
+                </p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

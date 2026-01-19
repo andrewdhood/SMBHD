@@ -1,0 +1,51 @@
+<!--
+ - Created by andrewhood on 1/19/26.
+ -->
+
+<!-- Mission Command -->
+<template>
+    <lightning-card title="Mission Command Console" icon-name="standard:groups">
+        <div class="slds-p-around_medium">
+            <div class="slds-grid slds-gutters slds-m-bottom_medium slds-grid_vertical-align-end">
+                <div class="slds-col slds-size_1-of-3">
+                    <lightning-combobox
+                            name="powerFilter"
+                            label="Filter by Power"
+                            value={selectedPower}
+                            options={powerOptions}
+                            onchange={handlePowerChange}>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-col slds-text-align_right">
+                    <p class="slds-text-title_caps">Total Deployed:
+                        <span class={deploymentCountClass}>{deployedCount} / 3</span>
+                    </p>
+                </div>
+            </div>
+
+            <template if:true={error}>
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-m-bottom_medium" role="alert">
+                    <h2>{error}</h2>
+                </div>
+            </template>
+
+            <div class="slds-grid slds-wrap slds-gutters_small">
+                <template if:true={heroes}>
+                    <template for:each={heroes} for:item="h">
+                        <div key={h.id} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4 slds-m-bottom_small">
+                            <c-hero-card
+                                    hero={h}
+                                    ondeploy={handleDeploy}
+                                    onrecall={handleRecall}>
+                            </c-hero-card>
+                        </div>
+                    </template>
+                </template>
+
+                <template if:false={heroes}>
+                    <lightning-spinner alternative-text="Loading Heroes..." size="medium"></lightning-spinner>
+                </template>
+            </div>
+        </div>
+    </lightning-card>
+</template>

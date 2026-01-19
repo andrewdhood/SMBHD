@@ -1,0 +1,27 @@
+/**
+ * Created by andrewhood on 1/19/26.
+ */
+.hero-card {
+    width: 220px;
+    border: 1px solid #dddbda;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.hero-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.hero-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #1589ee;
+}
+
+.slds-badge {
+    color: white !important; /* Ensures contrast on red/green backgrounds */
+}

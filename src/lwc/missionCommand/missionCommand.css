@@ -1,0 +1,29 @@
+/**
+ * Created by andrewhood on 1/19/26.
+ */
+:host {
+    --slds-c-card-color-background: #f3f3f3;
+}
+
+.slds-card {
+    border: 1px solid #d8dde6;
+    border-radius: 0.5rem;
+}
+
+/* KEY FIX: Ensure the dropdown isn't hidden by the card */
+.main-container {
+    overflow: visible !important;
+    position: relative;
+    min-height: 400px; /* Ensures enough space for initial load */
+}
+
+/* KEY FIX: Higher z-index for the filter row */
+.filter-bar {
+    position: relative;
+    z-index: 10;
+}
+
+@keyframes pulse {
+    from { opacity: 1; }
+    to { opacity: 0.7; }
+}
