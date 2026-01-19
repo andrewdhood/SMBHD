@@ -193,6 +193,11 @@
         <type>Lookup</type>
     </fields>
     <label>Mission Assignment</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
     <nameField>
         <displayFormat>MA-{00000}</displayFormat>
         <label>Mission Assignment Name</label>

@@ -77,12 +77,17 @@ public with sharing class MissionCommandController {
 
     @AuraEnabled
     public static void deployHeroToMission(Id heroId, Id missionId) {
-        // Atomic Transaction: Create Assignment + Update Hero Status
         try {
-            insert new Mission_Assignment__c(Superhero__c = heroId, Mission__c = missionId, Is_Active__c = true);
-            update new Superhero__c(Id = heroId, Status__c = 'On Mission');
+            Mission_Assignment__c ma = new Mission_Assignment__c(
+                    Superhero__c = heroId,
+                    Mission__c = missionId
+            );
+            insert ma;
+        } catch (DmlException e) {
+            // This strips away the "Insert failed..." and returns JUST your custom message
+            throw new AuraHandledException(e.getDmlMessage(0));
         } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
+            throw new AuraHandledException('An unexpected error occurred: ' + e.getMessage());
         }
     }
 

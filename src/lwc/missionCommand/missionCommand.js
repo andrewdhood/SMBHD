@@ -64,20 +64,15 @@ export default class MissionCommand extends LightningElement {
     // Action: Deploy
     handleDeploy(event) {
         const heroId = event.detail;
-        deployHeroToMission({heroId: heroId, missionId: this.recordId})
+        deployHeroToMission({ heroId: heroId, missionId: this.recordId })
             .then(() => {
                 this.showToast('Success', 'Hero Deployed!', 'success');
                 return refreshApex(this.wiredHeroesResult);
             })
             .catch(error => {
-                // FIX: Extract the specific error message from the ugly system wrapper
-                let message = 'Unknown Error';
-                if(error.body && error.body.pageErrors && error.body.pageErrors.length > 0) {
-                    message = error.body.pageErrors[0].message; // Gets "Mission capacity reached..."
-                } else if(error.body && error.body.message) {
-                    message = error.body.message;
-                }
-                this.showToast('Deployment Failed' + message + 'error');
+                // Use the helper to get the clean message
+                const cleanMessage = this.reduceErrors(error);
+                this.showToast('Deployment Denied', cleanMessage, 'error');
             });
     }
 
@@ -98,5 +93,27 @@ export default class MissionCommand extends LightningElement {
 
     showToast(title, message, variant) {
         this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
+    }
+
+    // Helper function to extract the clean message
+    reduceErrors(errors) {
+        if (!Array.isArray(errors)) {
+            errors = [errors];
+        }
+
+        return errors
+            .map((error) => {
+                if (error.body && Array.isArray(error.body)) {
+                    return error.body.map((e) => e.message);
+                } else if (error.body && typeof error.body.message === 'string') {
+                    return error.body.message; // trying to catch AuraHandledExceptions
+                } else if (error.message) {
+                    return error.message;
+                }
+                return error.statusText;
+            })
+            .reduce((prev, curr) => prev.concat(curr), [])
+            .filter((message) => !!message)
+            .join(', ');
     }
 }
