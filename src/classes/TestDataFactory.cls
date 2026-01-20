@@ -61,7 +61,7 @@ public class TestDataFactory {
     }
 
     /**
-     * Creates a hero with profile image URL.
+     * Creates a hero with dummy profile image URL.
      * @param name Hero name
      * @param power Power type
      * @param imageUrl Profile image URL
